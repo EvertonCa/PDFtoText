@@ -5,9 +5,9 @@ import os
 
 class PDFtoImage:
     def __init__(self):
-        self.current_directory = os.getcwd()
-        self.pdf_directory = self.current_directory + '/PDFs/'
-        self.images_directory = self.current_directory + '/Images/'
+        self.root_directory = os.getcwd()
+        self.pdf_directory = self.root_directory + '/PDFs/'
+        self.images_directory = self.root_directory + '/Images/'
 
         if os.path.exists(self.pdf_directory):
             pass
@@ -38,9 +38,9 @@ class PDFtoImage:
                     page.save('Page' + str(temp_index) + '.jpg', 'JPEG')
                     temp_index += 1
                 os.chdir(self.images_directory)
-        os.chdir(self.current_directory)
+        os.chdir(self.root_directory)
 
-    def files_names(self):
+    def pdf_files_names(self):
         all_files = os.listdir(self.pdf_directory)
         all_pdfs_names = []
         for temp_file_names in all_files:
@@ -49,7 +49,24 @@ class PDFtoImage:
 
         return all_pdfs_names
 
+    def folder_names(self):
+        all_folders = os.listdir(self.images_directory)
+        all_folders_names = []
+        for temp_folder_names in all_folders:
+            if temp_folder_names[0] != '.':
+                all_folders_names.append(temp_folder_names)
+
+        return all_folders_names
+
+    def clean_folders(self, all_folders_names):
+        for folder in all_folders_names:
+            files_list = os.listdir(self.images_directory + folder)
+            os.chdir(self.images_directory + folder)
+            for file in files_list:
+                os.remove(file)
+            os.rmdir(self.images_directory + folder)
+        os.chdir(self.root_directory)
+
+
 i = PDFtoImage()
-i.convert_all(i.files_names())
-
-
+i.clean_folders(i.folder_names())
