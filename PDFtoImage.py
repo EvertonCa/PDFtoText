@@ -19,6 +19,7 @@ class PDFtoImage:
         else:
             os.mkdir('Images')
 
+    # convert all pdfs in the /PDFs folder to images in the /Images/~NAME~ folder
     def convert_all(self, all_pdfs_names):
         os.chdir(self.images_directory)
         for pdf_name in all_pdfs_names:
@@ -42,6 +43,7 @@ class PDFtoImage:
                 os.chdir(self.images_directory)
         os.chdir(self.root_directory)
 
+    # return all the pdfs names in a list
     def pdf_files_names(self):
         all_files = os.listdir(self.pdf_directory)
         all_pdfs_names = []
@@ -51,6 +53,7 @@ class PDFtoImage:
 
         return all_pdfs_names
 
+    # return all the folders names in a list
     def folder_names(self):
         all_folders = os.listdir(self.images_directory)
         all_folders_names = []
@@ -60,6 +63,7 @@ class PDFtoImage:
 
         return all_folders_names
 
+    # deletes all the images created as well the correspondent folders
     def clean_folders(self, all_folders_names):
         for folder in all_folders_names:
             files_list = os.listdir(self.images_directory + folder)

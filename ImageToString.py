@@ -12,6 +12,7 @@ class ImageToString:
         self.images_directory = self.root_directory + '/Images/'
         self.results_directory = self.root_directory + '/Results/'
 
+    # convert all images to strings using Tesseract and saves them as an Article object and to file
     def convert_all(self):
         os.chdir(self.images_directory)
         for pdf_name in self.all_pdfs_names:
@@ -35,6 +36,7 @@ class ImageToString:
             os.chdir(self.images_directory)
         os.chdir(self.root_directory)
 
+    # saves the articles to .pkl and .txt files
     def save_to_file(self, folder_name, article):
         os.chdir(self.root_directory)
         if os.path.exists(self.results_directory):
