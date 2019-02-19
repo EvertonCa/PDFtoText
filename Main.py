@@ -1,8 +1,23 @@
-import pytesseract
-from PIL import Image
 import os
+import PDFtoImage
+import ImageToString
 
-current_directory = os.getcwd()
-images_directory = current_directory + '/Images/'
+root_directory = os.getcwd()
+images_directory = root_directory + '/Images/'
 
-print(pytesseract.image_to_string(Image.open(images_directory + 'Image3.jpg')))
+pdf_manager = PDFtoImage.PDFtoImage()
+
+input('Put all the desired .pdfs on the /PDFs folder and press ENTER.\n')
+
+all_pdfs_names = pdf_manager.pdf_files_names()
+
+pdf_manager.convert_all(all_pdfs_names)
+
+image_manager = ImageToString.ImageToString(all_pdfs_names)
+
+image_manager.convert_all()
+
+pdf_manager.clean_folders(pdf_manager.folder_names())
+
+print('~~~~~~ DONE ~~~~~~')
+print('~~~~~~ Check the folder /Results ~~~~~~')

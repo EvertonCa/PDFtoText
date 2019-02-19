@@ -34,6 +34,8 @@ class PDFtoImage:
                     os.mkdir(folder_name)
 
                 os.chdir(self.images_directory + folder_name)
+
+                print('~~~~~~ CONVERTING THE FILE ' + folder_name + ' TO IMAGE ~~~~~~')
                 for page in images_from_path:
                     page.save('Page' + str(temp_index) + '.jpg', 'JPEG')
                     temp_index += 1
@@ -66,7 +68,3 @@ class PDFtoImage:
                 os.remove(file)
             os.rmdir(self.images_directory + folder)
         os.chdir(self.root_directory)
-
-
-i = PDFtoImage()
-i.clean_folders(i.folder_names())
