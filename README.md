@@ -1,5 +1,5 @@
 # PDFtoText
-##About
+## About
 Convert any .PDF file to a .txt file. The default recognized language is English. You must change the pytesseract
  configuration for other languages
 
@@ -13,12 +13,12 @@ You must have the following items installed in your machine:
 - pillow
 - pdf2image
 
-##Installing Tesseract 4.0
+## Installing Tesseract 4.0
 
 Please follow the instructions from the 
 **[Project Tesseract-OCR Wiki Page](https://github.com/tesseract-ocr/tesseract/wiki)**
 
-##Installing the Python dependencies
+## Installing the Python dependencies
 
 Make sure you have **Python 3.6 or above and Pip** installed.
 
