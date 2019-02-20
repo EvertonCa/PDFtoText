@@ -9,7 +9,6 @@ You must have the following items installed in your machine:
 - Python 3.6 or above
 - Google Tesseract
 - pytesseract
-- pickle
 - pillow
 - pdf2image
 
@@ -25,7 +24,6 @@ Make sure you have **Python 3.6 or above and Pip** installed.
 Install via **Pip** the following packages:
 
 - pytesseract
-- pickle
 - pillow
 - pdf2image
 
