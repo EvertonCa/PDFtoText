@@ -18,6 +18,8 @@ You must have the following items installed in your machine:
 Please follow the instructions from the 
 **[Project Tesseract-OCR Wiki Page](https://github.com/tesseract-ocr/tesseract/wiki)**
 
+PS. Windows users: Make sure to add tesseract to **[PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)**
+
 ## Installing poppler
 
 Windows users will have to install 
