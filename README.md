@@ -7,9 +7,9 @@ Convert any .PDF file to a .txt file. The default recognized language is English
 This program can run in **Windows, MacOS and Linux**.
 You must have the following items installed in your machine:
 - Python 3.6 or above
+- poppler
 - Google Tesseract
 - pytesseract
-- pickle
 - pillow
 - pdf2image
 
@@ -18,6 +18,18 @@ You must have the following items installed in your machine:
 Please follow the instructions from the 
 **[Project Tesseract-OCR Wiki Page](https://github.com/tesseract-ocr/tesseract/wiki)**
 
+PS. Windows users: Make sure to add tesseract to **[PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)**
+
+## Installing poppler
+
+Windows users will have to install 
+**[poppler for Windows](http://blog.alivate.com.au/poppler-windows/)**
+and add the `/bin/` folder to **[PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)**
+
+Mac users will have to install **[poppler for Mac](http://macappstore.org/poppler/)** 
+
+Linux users will have both tools pre-installed with Ubuntu 16.04+ and Archlinux. If it's not, run `sudo apt install poppler-utils`
+
 ## Installing the Python dependencies
 
 Make sure you have **Python 3.6 or above and Pip** installed.
@@ -25,7 +37,6 @@ Make sure you have **Python 3.6 or above and Pip** installed.
 Install via **Pip** the following packages:
 
 - pytesseract
-- pickle
 - pillow
 - pdf2image
 
