@@ -1,6 +1,8 @@
 from pdf2image import convert_from_path
 import tempfile
 import os
+from multiprocessing import Pool
+from multiprocessing import cpu_count
 
 
 class PDFtoImage:
@@ -22,26 +24,30 @@ class PDFtoImage:
     # convert all pdfs in the /PDFs folder to images in the /Images/~NAME~ folder
     def convert_all(self, all_pdfs_names):
         os.chdir(self.images_directory)
-        for pdf_name in all_pdfs_names:
-            with tempfile.TemporaryDirectory() as path:
-                images_from_path = convert_from_path(self.pdf_directory + pdf_name, output_folder=path)
-                temp_index = 1
-
-                folder_name = pdf_name[:-4]
-
-                if os.path.exists(self.images_directory + folder_name):
-                    pass
-                else:
-                    os.mkdir(folder_name)
-
-                os.chdir(self.images_directory + folder_name)
-
-                print('~~~~~~ CONVERTING THE FILE ' + folder_name + ' TO IMAGE ~~~~~~')
-                for page in images_from_path:
-                    page.save('Page' + str(temp_index) + '.jpg', 'JPEG')
-                    temp_index += 1
-                os.chdir(self.images_directory)
+        with Pool(cpu_count()) as p:
+            p.map(self.convert_one, all_pdfs_names)
         os.chdir(self.root_directory)
+
+    # convert one pdf to image
+    def convert_one(self, pdf_name):
+        with tempfile.TemporaryDirectory() as path:
+            images_from_path = convert_from_path(self.pdf_directory + pdf_name, output_folder=path)
+            temp_index = 1
+
+            folder_name = pdf_name[:-4]
+
+            if os.path.exists(self.images_directory + folder_name):
+                pass
+            else:
+                os.mkdir(folder_name)
+
+            os.chdir(self.images_directory + folder_name)
+
+            print('~~~~~~ CONVERTING THE FILE ' + folder_name + ' TO IMAGE ~~~~~~')
+            for page in images_from_path:
+                page.save('Page' + str(temp_index) + '.jpg', 'JPEG')
+                temp_index += 1
+            os.chdir(self.images_directory)
 
     # return all the pdfs names in a list
     def pdf_files_names(self):

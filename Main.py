@@ -1,6 +1,7 @@
 import os
 import PDFtoImage
 import ImageToString
+import Timer
 
 # saves the desired directories addresses to string
 root_directory = os.getcwd()
@@ -11,6 +12,9 @@ pdf_manager = PDFtoImage.PDFtoImage()
 
 # user message
 input('Put all the desired .pdfs on the /PDFs folder and press ENTER.\n')
+
+# start time
+start_time = Timer.timeNow()
 
 # all the pdfs names
 all_pdfs_names = pdf_manager.pdf_files_names()
@@ -28,5 +32,5 @@ image_manager.convert_all()
 pdf_manager.clean_folders(pdf_manager.folder_names())
 
 # user feedback
-print('~~~~~~ DONE ~~~~~~')
+print('~~~~~~ DONE IN ' + str(Timer.totalTime(start_time, Timer.timeNow())) + ' ~~~~~~')
 print('~~~~~~ Check the folder /Results ~~~~~~')
