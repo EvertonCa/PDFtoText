@@ -5,6 +5,7 @@ from PIL import Image
 import pickle
 from multiprocessing import Pool
 from multiprocessing import cpu_count
+from tqdm import tqdm
 
 
 class ImageToString:
@@ -17,9 +18,11 @@ class ImageToString:
     # convert all images to strings using Tesseract and saves them as an Article object and to file
     def convert_all(self):
         os.chdir(self.images_directory)
+        print('~~~~~~ CONVERTING FILES TO .txt ~~~~~~')
         with Pool(cpu_count()) as p:
-            p.map(self.convert_one, self.all_pdfs_names)
+            r = list(tqdm(p.imap(self.convert_one, self.all_pdfs_names), total=len(self.all_pdfs_names)))
         os.chdir(self.root_directory)
+        print('')
 
     # convert one folder of images to string
     def convert_one(self, pdf_name):
@@ -33,7 +36,6 @@ class ImageToString:
 
         new_article = Article.Article(folder_name)
 
-        print('~~~~~~ CONVERTING THE FILE ' + folder_name + ' TO .txt ~~~~~~')
         for page in range(len(all_images)):
             new_article.add_page(pytesseract.image_to_string(Image.open(temp_directory +
                                                                         '/Page' + str(page + 1) + '.jpg')))

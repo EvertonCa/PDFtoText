@@ -3,6 +3,7 @@ import tempfile
 import os
 from multiprocessing import Pool
 from multiprocessing import cpu_count
+from tqdm import tqdm
 
 
 class PDFtoImage:
@@ -24,9 +25,11 @@ class PDFtoImage:
     # convert all pdfs in the /PDFs folder to images in the /Images/~NAME~ folder
     def convert_all(self, all_pdfs_names):
         os.chdir(self.images_directory)
+        print('~~~~~~ CONVERTING FILES TO IMAGE ~~~~~~')
         with Pool(cpu_count()) as p:
-            p.map(self.convert_one, all_pdfs_names)
+            r = list(tqdm(p.imap(self.convert_one, all_pdfs_names), total=len(all_pdfs_names)))
         os.chdir(self.root_directory)
+        print('')
 
     # convert one pdf to image
     def convert_one(self, pdf_name):
@@ -43,7 +46,6 @@ class PDFtoImage:
 
             os.chdir(self.images_directory + folder_name)
 
-            print('~~~~~~ CONVERTING THE FILE ' + folder_name + ' TO IMAGE ~~~~~~')
             for page in images_from_path:
                 page.save('Page' + str(temp_index) + '.jpg', 'JPEG')
                 temp_index += 1
